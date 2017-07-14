@@ -1,0 +1,26 @@
+<h1 class="title"><a class="title-link" href="/">Drink and Derive.</a></h1>
+<h5>Insert an expression. Choose an operation. Grab a beer. We take care of the rest.</h5>
+<form class="" action="/calculations" method="post">
+  <div class="row">
+    <div class="eight columns">
+      <label for="expression">Expression</label>
+      <input class="u-full-width" id="expression" type="text" name="calculation" placeholder="Example: 3x + 1">
+    </div>
+    <div class="four columns">
+      <label for="operation">Operation</label>
+      <select class="u-full-width" name="operation" placeholder=" - Select -">
+        <option class="not_chosen" value="">-- select --</option>
+        <option value="simplify">Simplify</option>
+        <option value="factor">Factor</option>
+        <option value="derive">Derive</option>
+        <option value="integrate">Integrate</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <input id="solve" class="button button-primary twelve columns" type="submit" value="Solve">
+  </div>
+</form>
+<!-- <a class="button button-primary" href="#">Download</a> -->
+<br>
+<div id="calculator" class="twelve columns" ></div>
