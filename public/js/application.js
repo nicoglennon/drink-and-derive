@@ -1,6 +1,6 @@
 
 
-
+// submit the calculation and open the calculator handler
 function openCalculatorHandler(event) {
   console.log("hello");
   event.preventDefault();
@@ -20,7 +20,19 @@ function openCalculatorHandler(event) {
   // post request
   $.post(url, data)
     .done(function(json) {
+      // hide button
+      $(that).find('.button-primary').hide();
+
+      // create beer div
       console.log(json);
+      beerDiv = "<div class='beer-div'><h3 class='beer-title'><a class='title-link beer-name-title'>" + json.beer + "</a></h3><p class='beer-details-p' style='display: none;'>" + json.description + "</p></div>"
+      console.log(beerDiv)
+      b = $(beerDiv).hide();
+      console.log(b);
+      $('#main-div').append(b);
+      b.fadeIn(600);
+
+
       // fetch the designated calculator div
       var elt = document.getElementById('calculator');
 
@@ -35,13 +47,14 @@ function openCalculatorHandler(event) {
       calculator.setExpression({id:'expression', latex: ['y= ' + json.expression]});
       calculator.setExpression({id:'result', latex: ['y= ' + json.result]});
 
-      // hdie button
-      $(that).find('.button-primary').hide();
       var r = $(elt).hide();
       // console.log(r);
       $(that).closest('#main-div').append(r);
       $(r).css("height", "500px");
-      r.fadeIn(800);
+      setTimeout(function(){
+        r.fadeIn(800);
+      }, 800);
+
     })
   .always( function() {
     // spinner actions
@@ -51,10 +64,21 @@ function openCalculatorHandler(event) {
 };
 
 
+// toggle beer description
+function openBeerDescriptionHandler(event) {
+  console.log(this);
+  descrip = $(this).parent().find('p');
+  console.log(descrip);
+  descrip.fadeToggle(400);
+}
+
+
 var bindEvents = function() {
 
   // open calculator handler
   $('#calculation-form').on("submit", openCalculatorHandler);
+
+  $('#main-div').on("mouseenter", ".beer-title", openBeerDescriptionHandler).on("mouseleave", ".beer-title", openBeerDescriptionHandler);
 }
 
 $(document).ready(function() {

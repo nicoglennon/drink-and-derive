@@ -28,6 +28,7 @@ div#main-div {
 .title {
   font-weight: bold;
   margin-bottom: 4rem;
+  font-size: 3.5em;
 }
 
 .tagline {
@@ -41,7 +42,7 @@ form {
 }
 
 #calculator {
-  margin: 0px 0px 40px 0px;
+  margin: 10px 0px 60px 0px;
   height: 0px;
 }
 
@@ -93,7 +94,7 @@ header {
   margin-top: 20px;
 }
 
-#github-button {
+.nav-buttons {
   margin-top: 10px;
   margin-right: 20px;
 }
@@ -118,7 +119,7 @@ footer {
  background-color: #00CED1;
  position: absolute;
  z-index: 1;
- top: 110px;
+ top: 111px;
  left: 45%;
 
  margin: 100px auto;
@@ -169,3 +170,44 @@ footer {
    padding: 20px;
    display: inline;
  }
+
+
+ a.header-links {
+   text-decoration: none;
+   color: #000;
+ }
+
+ button.header-buttons {
+   margin-left: 10px;
+ }
+
+ input#register-button {
+   margin-top: 20px;
+   font-size: 20px;
+   height: 60px;
+ }
+ input.register-input-username {
+   /*font-size: 18px;*/
+ }
+
+ .beer-div {
+   background-color: #f0f0f0;
+   padding: 20px;
+   margin-bottom: 30px;
+ }
+ .beer-div:hover {
+   background-color: #EAF2F8;
+ }
+
+ .beer-title {
+   margin-bottom: 0px;
+ }
+
+ .beer-name-title:before {
+    height: 2px;
+ }
+
+.beer-details-p {
+  font-size: 20px;
+  margin: 10px 0px 0px 0px;
+}

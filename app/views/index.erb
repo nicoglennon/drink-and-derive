@@ -1,5 +1,5 @@
 <h1 class="title"><a class="title-link" href="/">Drink and Derive.</a></h1>
-<h5 class="tagline">Type an expression. Choose an operation. Get a beer.</h5>
+<h4 class="tagline">Type an expression. Choose an operation. Get a beer.</h4>
 <form id="calculation-form" action="/calculations" method="post">
   <div class="row">
     <div class="eight columns">
@@ -22,5 +22,8 @@
   </div>
 </form>
 <br>
+<% if @beer %>
+<p><%= erb :'/beers/_show', layout: false, locals: {beer: @beer} %></p>
+<% end %>
 <div id="calculator" class="twelve columns" ></div>
 <%= erb :'/calculators/_show', layout: false, locals: { result: @result } %>

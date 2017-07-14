@@ -13,13 +13,25 @@ post '/calculations' do
   url = "https://newton.now.sh/#{operation}/#{enc_expression}"
   response = HTTParty.get(url)
   @result = response.parsed_response
+
+  name = ["spotted%20cow", "fat%20tire", "brooklyn%20lager"].sample
+
+  url = "http://api.brewerydb.com/v2/beers/?key=d0a40e4ae5361ed449cc06e0a2953efd&name=#{name}&order=random&randomCount=1"
+  response = HTTParty.get(url)
+  puts response
+  @beer = response
+  erb :'index'
+
+
   if request.xhr?
     # something
     p "HELLO"
     content_type :json
     {
       expression: @result["expression"],
-      result: @result["result"]
+      result: @result["result"],
+      beer: @beer["data"][0]["name"],
+      description: @beer["data"][0]["description"]
     }.to_json
   else
     erb :'index'
