@@ -1,0 +1,17 @@
+<% if result %>
+
+<script>
+  // fetch the designated calculator div
+  var elt = document.getElementById('calculator');
+  // options object for the calculator
+  var options = {
+    // turn off the topbar in the expressions
+    expressionsTopbar: false
+  };
+  // instantiate a calculator inside the div element, and pass it the options obj
+  var calculator = Desmos.GraphingCalculator(elt, options);
+  // create the expressions that will be inside the calculator
+  calculator.setExpression({id:'expression', latex: ['y=<%= result["expression"] %>']});
+  calculator.setExpression({id:'result', latex: ['y=<%= result["result"] %>']});
+</script>
+<% end %>

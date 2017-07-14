@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,8 +23,17 @@
   <title>Beautiful and Meaningful</title>
 </head>
 <body>
-  <div class="container">
+  <!-- spinner & overlay for loading effect -->
+  <div class="spinner" style="display: none;"></div>
+  <div class="overlay" style="display: none;"></div>
+
+  <header>
+    <button type="button" name="button">Source on Github</button>
+  </header>
+  <%=  erb :"_nav", layout: false %>
+  <div id="main-div" class="container">
     <%= yield %>
   </div>
+  <%= erb :'_footer', layout: false %>
 </body>
 </html>
