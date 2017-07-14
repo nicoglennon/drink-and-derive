@@ -19,6 +19,7 @@ require 'sinatra'
 require "sinatra/reloader" if development?
 
 require 'httparty'
+require 'dotenv'
 
 require 'erb'
 require 'pry-byebug' if development?
