@@ -20,6 +20,10 @@ function openCalculatorHandler(event) {
   // post request
   $.post(url, data)
     .done(function(json) {
+
+      // disable form
+      $("#calculation-form input, select").prop("disabled", true);
+
       // hide submit button
       $(that).find('.button-primary').hide();
 
@@ -28,12 +32,21 @@ function openCalculatorHandler(event) {
 
       // create beer div
       console.log(json);
-      beerDiv = "<div class='beer-div five columns'><p class='over-beer-div'>Your beer is:</p><h3 class='beer-title'><a class='title-link beer-name-title'>" + json.beer + "</a>" + "<span class='down-arrow'>  ↓</span>" + "</h3><p class='beer-details-p' style='display: none;'>" + json.description + "</p></div>"
+      var beerDiv = "<div class='beer-div five columns'><p class='over-beer-div'>Your beer is:</p><h3 class='beer-title'><a class='title-link beer-name-title'>" + json.beer + "</a>" + "<span class='down-arrow'>  ↓</span>" + "</h3><p class='beer-details-p' style='display: none;'>" + json.description + "</p></div>"
       console.log(beerDiv)
       b = $(beerDiv).hide();
       console.log(b);
       $('#main-div').append(b);
       b.fadeIn(600);
+
+      // create solution div
+      var solutionDiv = `
+      <div class="row" id="solution-div">
+        <div class="twelve columns">
+          <label for="expression">Solution</label>
+          <input class="u-full-width" id="solution" type="text" name="expression" value="` + json.result + `">
+        </div>
+      </div>`
 
 
       // fetch the designated calculator div
@@ -53,12 +66,15 @@ function openCalculatorHandler(event) {
 
       var r = $(elt).hide();
       var s = $(refreshButton).hide();
+      var t = $(solutionDiv).hide();
 
+      $('#calculation-form').append(t);
       $(that).closest('#main-div').append(r);
       $(that).closest('#main-div').append(s);
 
       $(r).css("height", "500px");
       setTimeout(function(){
+        t.fadeIn(600);
         r.fadeIn(600);
         s.fadeIn(600);
       }, 500);
@@ -82,7 +98,7 @@ function openCalculatorHandler(event) {
 // open beer description
 function openBeerDescriptionHandler(event) {
   $('#overlay').fadeIn(600);
-  descrip = $(this).parent().find('p.beer-details-p');
+  var descrip = $(this).parent().find('p.beer-details-p');
   descrip.fadeIn(600);
   $(this).toggleClass('beer-div-toggle');
   $('.down-arrow').fadeOut(200);
@@ -91,7 +107,7 @@ function openBeerDescriptionHandler(event) {
 // close beer description
 function closeBeerDescriptionHandler(event) {
   console.log(this);
-  descrip = $(this).parent().find('p.beer-details-p');
+  var descrip = $(this).parent().find('p.beer-details-p');
   descrip.fadeOut(0);
   $(this).toggleClass('beer-div-toggle');
   $('.down-arrow').fadeIn(400);
@@ -106,6 +122,7 @@ function refreshPageHandler(event) {
   // remove the calculator contents
   setTimeout(function(){
     $('.dcg-container').fadeOut(400, function(){ $(this).remove();});
+    $('#solution-div').fadeOut(400, function(){ $(this).remove();});
   }, 600);
 
   // make calculator div 0px high
@@ -123,6 +140,8 @@ function refreshPageHandler(event) {
     $('#solve').fadeIn(800);
   },1600);
 
+  // enable form
+  $("#calculation-form input, select").prop("disabled", false);
 }
 
 var bindEvents = function() {
