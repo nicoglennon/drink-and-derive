@@ -28,11 +28,11 @@
   <div class="overlay" style="display: none;"></div>
 
   <header>
-    <button type="button" name="button" class="header-buttons"><a class="header-links" href="/sessions/new">Log In</a></button>
-    <button type="button" name="button" class="header-buttons"><a class="header-links" href="/users/new">Register</a></button>
+    <button type="button" name="button" class="header-buttons"><a class="header-links" href="/users/new">Github</a></button>
   </header>
   <%=  erb :"_nav", layout: false %>
   <div id="main-div" class="container">
+    <div id="overlay"></div>
     <%= yield %>
   </div>
   <%= erb :'_footer', layout: false %>

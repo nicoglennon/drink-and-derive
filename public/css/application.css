@@ -42,7 +42,7 @@ form {
 }
 
 #calculator {
-  margin: 10px 0px 60px 0px;
+  margin: 10px 0px 30px 0px;
   height: 0px;
 }
 
@@ -186,17 +186,34 @@ footer {
    font-size: 20px;
    height: 60px;
  }
- input.register-input-username {
-   /*font-size: 18px;*/
- }
+  input.register-input-username {
+    /*font-size: 18px;*/
+  }
 
- .beer-div {
-   background-color: #f0f0f0;
-   padding: 20px;
-   margin-bottom: 30px;
- }
- .beer-div:hover {
-   background-color: #EAF2F8;
+  .beer-div {
+    padding: 20px;
+    /*border-radius: 5px;*/
+    position: absolute;
+    background-color: white;
+    right: 0%;
+    top: -60px;
+    opacity: 0.96;
+    z-index: 10;
+    /*border: 1px solid #00CEe9;*/
+    font-size: 1.2em;
+
+    border: 3px solid transparent;
+    -moz-border-image: -moz-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+	  -webkit-border-image: -webkit-linear-gradient(top left, #3acfd5 0%, #3a4ed5 100%);
+	  border-image: linear-gradient(to bottom right, #3acfd5 0%, #3a4ed5 100%);
+
+	  border-image-slice: 1;
+  }
+
+
+ .beer-div-toggle {
+   /*background-color: #EAF2F8;*/
+   border: 3px solid white;
  }
 
  .beer-title {
@@ -210,4 +227,39 @@ footer {
 .beer-details-p {
   font-size: 20px;
   margin: 10px 0px 0px 0px;
+}
+
+button.refresh-button {
+  margin-bottom: 50px;
+  font-size: 1.6em;
+  height: 80px;
+}
+
+p.over-beer-div {
+  margin-bottom: 0px;
+  font-size: 1.2em;
+}
+
+span.down-arrow {
+}
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(70,197,235,1);
+    background: -moz-linear-gradient(-45deg, rgba(0,200,255,1) 0%, rgba(0,255,157,0.45) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(0,200,255,1)), color-stop(100%, rgba(0,255,157,0.45)));
+    background: -webkit-linear-gradient(-45deg, rgba(0,200,255,1) 0%, rgba(0,255,157,0.45) 100%);
+    background: -o-linear-gradient(-45deg, rgba(0,200,255,1) 0%, rgba(0,255,157,0.45) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(0,200,255,1) 0%, rgba(0,255,157,0.45) 100%);
+    background: linear-gradient(135deg, rgba(0,200,255,1) 0%, rgba(0,255,157,0.45) 100%);
+
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
 }

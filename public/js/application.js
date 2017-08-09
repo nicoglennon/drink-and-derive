@@ -20,12 +20,15 @@ function openCalculatorHandler(event) {
   // post request
   $.post(url, data)
     .done(function(json) {
-      // hide button
+      // hide submit button
       $(that).find('.button-primary').hide();
+
+      // create refresh button
+      var refreshButton = `<button class="button button-primary u-full-width btn refresh-button" id="retry-button">Retry</button>`
 
       // create beer div
       console.log(json);
-      beerDiv = "<div class='beer-div'><h3 class='beer-title'><a class='title-link beer-name-title'>" + json.beer + "</a></h3><p class='beer-details-p' style='display: none;'>" + json.description + "</p></div>"
+      beerDiv = "<div class='beer-div five columns'><p class='over-beer-div'>Your beer is:</p><h3 class='beer-title'><a class='title-link beer-name-title'>" + json.beer + "</a>" + "<span class='down-arrow'>  ↓</span>" + "</h3><p class='beer-details-p' style='display: none;'>" + json.description + "</p></div>"
       console.log(beerDiv)
       b = $(beerDiv).hide();
       console.log(b);
@@ -47,55 +50,102 @@ function openCalculatorHandler(event) {
       calculator.setExpression({id:'expression', latex: ['y= ' + json.expression]});
       calculator.setExpression({id:'result', latex: ['y= ' + json.result]});
 
+
       var r = $(elt).hide();
-      // console.log(r);
+      var s = $(refreshButton).hide();
+
       $(that).closest('#main-div').append(r);
+      $(that).closest('#main-div').append(s);
+
       $(r).css("height", "500px");
       setTimeout(function(){
-        r.fadeIn(800);
-      }, 800);
+        r.fadeIn(600);
+        s.fadeIn(600);
+      }, 500);
 
     })
-  .always( function() {
-    // spinner actions
-    $('.spinner').fadeOut();
-    $('.overlay').fadeOut();
-  });
+    .fail( function () {
+      $('.spinner').hide();
+      $('.overlay').hide();
+      setTimeout(function() {
+        alert("Calculation invalid - Make sure you include both an expression and an operation!");
+      }, 100);
+    })
+    .always( function() {
+      // spinner actions
+      $('.spinner').fadeOut();
+      $('.overlay').fadeOut();
+    });
 };
 
 
-// toggle beer description
+// open beer description
 function openBeerDescriptionHandler(event) {
-  console.log(this);
-  descrip = $(this).parent().find('p');
-  console.log(descrip);
-  descrip.fadeToggle(400);
+  $('#overlay').fadeIn(600);
+  descrip = $(this).parent().find('p.beer-details-p');
+  descrip.fadeIn(600);
+  $(this).toggleClass('beer-div-toggle');
+  $('.down-arrow').fadeOut(200);
 }
 
+// close beer description
+function closeBeerDescriptionHandler(event) {
+  console.log(this);
+  descrip = $(this).parent().find('p.beer-details-p');
+  descrip.fadeOut(0);
+  $(this).toggleClass('beer-div-toggle');
+  $('.down-arrow').fadeIn(400);
+  $('#overlay').fadeOut(200);
+}
+
+// refresh page / retry calculation
+function refreshPageHandler(event) {
+  $('#calculation-form')[0].reset();
+  $('#retry-button').fadeOut(1000, function(){ $(this).remove();});
+
+  // remove the calculator contents
+  setTimeout(function(){
+    $('.dcg-container').fadeOut(400, function(){ $(this).remove();});
+  }, 600);
+
+  // make calculator div 0px high
+  setTimeout(function() {
+    $('#calculator').css('height', '0px');
+  }, 1000);
+
+  // remove beer div
+  setTimeout(function(){
+    $('.beer-div').fadeOut(800, function(){ $(this).remove();});
+  }, 1000);
+
+  // fade in the 'beer me' button to solve expression
+  setTimeout(function() {
+    $('#solve').fadeIn(800);
+  },1600);
+
+}
 
 var bindEvents = function() {
 
   // open calculator handler
   $('#calculation-form').on("submit", openCalculatorHandler);
 
-  $('#main-div').on("mouseenter", ".beer-title", openBeerDescriptionHandler).on("mouseleave", ".beer-title", openBeerDescriptionHandler);
+  // hover over beer handler
+  $('#main-div').on("mouseenter", ".beer-div", openBeerDescriptionHandler).on("mouseleave", ".beer-div", closeBeerDescriptionHandler);
+
+  // click on retry button handler
+    $('#main-div').on("click", "#retry-button", refreshPageHandler);
 }
 
 $(document).ready(function() {
-
   // bind events;
   bindEvents();
   // scroll listener for nav
   $(window).scroll(function(){
-    if ($(this).scrollTop() > 170) {
+    if ($(this).scrollTop() > 160) {
       $('#nav').fadeIn(150);
     } else {
       $('#nav').fadeOut(150);
     }
   });
-
-  // DESMOS API INFO
-  // var elt = document.getElementById('calculator');
-  // var calculator = Desmos.GraphingCalculator(elt);
-  // calculator.setExpression({id:'graph1', latex:'y=x^2'});
 });

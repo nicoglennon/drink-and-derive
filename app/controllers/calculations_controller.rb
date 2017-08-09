@@ -24,15 +24,17 @@ post '/calculations' do
 
 
   if request.xhr?
-    # something
-    p "HELLO"
-    content_type :json
-    {
-      expression: @result["expression"],
-      result: @result["result"],
-      beer: @beer["data"][0]["name"],
-      description: @beer["data"][0]["description"]
-    }.to_json
+    if @result["expression"] == nil || @result["result"] == nil
+      status 422
+    else
+      content_type :json
+      {
+        expression: @result["expression"],
+        result: @result["result"],
+        beer: @beer["data"][0]["name"],
+        description: @beer["data"][0]["description"]
+      }.to_json
+    end
   else
     erb :'index'
   end
